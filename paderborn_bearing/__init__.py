@@ -14,7 +14,7 @@ from tqdm import tqdm
 
 start_time = time.time()
 class Paderborn:
-    def __init__(self, experiment, seq_len, *bearing_element):
+    def __init__(self, experiment, seq_len, *bearing_element, limit=None):
 
         if experiment not in ('Artificial', 'Healthy', 'Real'):
             print("wrong experiment name: {}".format(experiment))
@@ -37,6 +37,9 @@ class Paderborn:
             l = line.split()
             if l[0] in experiment and l[1] in bearing_element:
                 lines.append(l)
+                
+        if limit is not None:
+            lines = lines[:limit]
 
         self.seq_len = seq_len
         self.unpack_files(rdir, lines)
